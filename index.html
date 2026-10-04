@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><span class="logo">J</span>Job Tracker</div>
+  <nav>
+    <button class="nav-item" data-view="dashboard"><span>📊</span>Dashboard</button>
+    <button class="nav-item" data-view="applications"><span>📋</span>Applications</button>
+    <button class="nav-item" data-view="add"><span>➕</span>Add Application</button>
+  </nav>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <h1 id="pageTitle">Dashboard</h1>
+    <div class="tools">
+      <button class="btn ghost" id="themeBtn" title="Toggle dark/light mode">🌙</button>
+      <button class="btn ghost" id="exportBtn" title="Export CSV">⬇ <span class="lbl">Export</span></button>
+      <button class="btn ghost" id="importBtn" title="Import CSV">⬆ <span class="lbl">Import</span></button>
+      <button class="btn primary" data-view="add">+ <span class="lbl">Add Job</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section id="view-dashboard" class="view">
+      <div id="stats" class="stats"></div>
+      <div class="card">
+        <h2>Status distribution</h2>
+        <div id="chart" class="chart"></div>
+      </div>
+      <h2 class="section-title">Recent applications</h2>
+      <div id="recent" class="list"></div>
+    </section>
+
+    <section id="view-applications" class="view">
+      <div class="filters card">
+        <input type="search" id="q" placeholder="Search company, title, location, notes…">
+        <select id="fStatus"><option value="">All statuses</option></select>
+        <select id="fType"><option value="">All job types</option></select>
+        <select id="fSort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+        </select>
+      </div>
+      <p id="count" class="muted"></p>
+      <div id="list" class="list"></div>
+    </section>
+
+    <section id="view-add" class="view">
+      <form id="jobForm" class="card form" autocomplete="off">
+        <h2 id="formTitle">Add Application</h2>
+        <input type="hidden" name="id">
+        <label>Company name *<input name="company" required maxlength="120"></label>
+        <label>Job title *<input name="title" required maxlength="120"></label>
+        <label>Location<input name="location" maxlength="120"></label>
+        <label>Job type<select name="type"></select></label>
+        <label>Application date *<input type="date" name="date" required></label>
+        <label>Status<select name="status"></select></label>
+        <label>Job URL<input name="url" inputmode="url" placeholder="https://…"></label>
+        <label>Salary (optional)<input name="salary" maxlength="60" placeholder="e.g. $60,000 / year"></label>
+        <label class="full">Notes<textarea name="notes" rows="4"></textarea></label>
+        <div class="full row">
+          <button type="submit" class="btn primary" id="submitBtn">Add application</button>
+          <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<nav class="bottomnav">
+  <button class="nav-item" data-view="dashboard"><span>📊</span>Dashboard</button>
+  <button class="nav-item" data-view="applications"><span>📋</span>Applications</button>
+  <button class="nav-item" data-view="add"><span>➕</span>Add</button>
+</nav>
+
+<dialog id="dlg">
+  <h3>Delete application?</h3>
+  <p id="dlgText" class="muted"></p>
+  <div class="row end">
+    <button class="btn ghost" id="dlgNo">Cancel</button>
+    <button class="btn danger" id="dlgYes">Delete</button>
+  </div>
+</dialog>
+
+<div id="toasts"></div>
+<input type="file" id="csvFile" accept=".csv,text/csv" hidden>
+<script src="script.js"></script>
+</body>
+</html>
